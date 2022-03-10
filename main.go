@@ -140,12 +140,12 @@ func renameFiles(path string) {
 	files, err := ioutil.ReadDir(path)
 	for _, file := range files {
 		if file.IsDir() {
-			return
+			continue
 		}
 
 		number, exists := pageNumberByName[file.Name()]
 		if !exists {
-			return
+			continue
 		}
 
 		oldPath := filepath.Join(path, file.Name())
