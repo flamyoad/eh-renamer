@@ -22,9 +22,10 @@ func main() {
 	linkArgs := flag.String("link", "", "Link of the site")
 	flag.Parse()
 
-	var dir string
 	var link string
+	var dir string
 
+	link = *linkArgs
 	if *directoryArgs == "" {
 		path, err := os.Getwd()
 		if err != nil {
@@ -33,12 +34,8 @@ func main() {
 		dir = path
 	}
 
-	link = *linkArgs
-	link = "https://e-hentai.org/g/2159975/d5518a8e59/"
-	dir = `C:\Users\user\Desktop\hitomi_downloaded\[Fukuro Daizi] [Fanbox] Fukuro (2159975)`
-
-	fmt.Println(dir)
 	fmt.Println(link)
+	fmt.Println(dir)
 
 	res, err := fetchHtml(link)
 	defer res.Body.Close()
@@ -134,18 +131,9 @@ func getImageNames(res *http.Response) error {
 	return nil
 }
 
-func renameFiles(pathArgs string) {
+func renameFiles(path string) {
 	if len(pageNumberByName) == 0 {
 		log.Fatal("No images found")
-	}
-
-	path, err := os.Getwd()
-	if err != nil {
-		log.Fatalf("Cannot get current path, err: %s\n", err)
-	}
-
-	if pathArgs != "" {
-		path = pathArgs
 	}
 
 	fmt.Println(path)
